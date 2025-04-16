@@ -20,11 +20,15 @@ const allProducts = {
         { id: 8, name: 'Smart Watch', price: 199.99, rating: 4.2, image: Watch },
     ],
     fashion: [
-        { id: 1, name: 'Summer T-Shirt', price: 29.99, rating: 4.4, image: Fashions },
-        { id: 2, name: 'Classic Jeans', price: 49.99, rating: 4.1, image: Fashions },
-        { id: 3, name: 'Sneakers', price: 59.99, rating: 4.6, image: Fashions },
-        { id: 4, name: 'Leather Jacket', price: 89.99, rating: 4.8, image: Fashions },
+        { id: 1, name: 'Summer T-Shirt', price: 29.99, rating: 4.4, image: Fashions, gender: 'men' },
+        { id: 2, name: 'Classic Jeans', price: 49.99, rating: 4.1, image: Fashions, gender: 'men' },
+        { id: 3, name: 'Sneakers', price: 59.99, rating: 4.6, image: Fashions, gender: 'men' },
+        { id: 4, name: 'Leather Jacket', price: 89.99, rating: 4.8, image: Fashions, gender: 'men' },
+        { id: 5, name: 'Floral Dress', price: 39.99, rating: 4.5, image: Fashions, gender: 'women' },
+        { id: 6, name: 'Heels', price: 49.99, rating: 4.2, image: Fashions, gender: 'women' },
+        { id: 7, name: 'Handbag', price: 59.99, rating: 4.7, image: Fashions, gender: 'women' },
     ],
+
     'home-kitchen': [
         { id: 1, name: 'Non-Stick Pan Set', price: 39.99, rating: 4.3, image: Kitchen },
         { id: 2, name: 'Blender', price: 59.99, rating: 4.5, image: Kitchen },
@@ -32,18 +36,24 @@ const allProducts = {
         { id: 4, name: 'Dinnerware Set', price: 69.99, rating: 4.7, image: Kitchen },
     ],
     beauty: [
-        { id: 17, name: 'Moisturizer Cream', price: 19.99, rating: 4.6, image: Beauty },
-        { id: 18, name: 'Lipstick Set', price: 29.99, rating: 4.4, image: Beauty },
-        { id: 19, name: 'Face Wash', price: 14.99, rating: 4.3, image: Beauty },
-        { id: 20, name: 'Perfume Spray', price: 39.99, rating: 4.5, image: Beauty },
+        { id: 17, name: 'Moisturizer Cream', price: 19.99, rating: 4.6, image: Beauty, },
+        { id: 18, name: 'Lipstick Set', price: 29.99, rating: 4.4, image: Beauty, },
+        { id: 19, name: 'Face Wash', price: 14.99, rating: 4.3, image: Beauty , },
+        { id: 20, name: 'Perfume Spray', price: 39.99, rating: 4.5, image: Beauty , },
     ],
 };
 
 
 const CategoryPage = () => {
-    const { categoryName } = useParams();
+    const { categoryName,gender } = useParams();
     const readableName = categoryName.replace(/-/g, ' ');
-    const products = allProducts[categoryName] || [];
+    let products = allProducts[categoryName] || [];
+
+    if (categoryName === "fashion" && gender) {
+        const fashionProducts = products.filter(product => product.gender === gender.toLowerCase());
+        const beautyProducts = allProducts["beauty"];
+        products = [...fashionProducts, ...beautyProducts];
+    }
 
     return (
         <div className="category-page">
