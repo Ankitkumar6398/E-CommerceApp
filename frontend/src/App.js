@@ -3,7 +3,8 @@ import Register from './pages/Register';
 import './App.css';
 import Login from "./pages/Login";
 import HomePage from "./components/HomePage";
-import NavBar from "./components/NavBar"; // Make sure this matches the filename
+import NavBar from "./components/NavBar";
+import CategoryPage from "./components/CategoryPage"; // Make sure this matches the filename
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
             {/* All Routes for pages */}
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path = "/category/:categoryName" element={<CategoryPage/>}></Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
             </Routes>

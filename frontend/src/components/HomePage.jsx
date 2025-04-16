@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import '../css/HomePage.css';
+import {useNavigate} from 'react-router-dom';
 import Electronics from '../images/electronics.jpeg';
 import Fashions from '../images/fashion.jpeg';
 import Kitchen from '../images/home.jpeg';
@@ -10,7 +11,9 @@ import Watch from '../images/watch.jpeg';
 import Speaker from '../images/speaker.jpeg';
 
 
+
 const HomePage = () => {
+    const navigate = useNavigate();
     const categoriesRef = useRef(null);
 
     // Sample data - replace with your actual data
@@ -55,7 +58,9 @@ const HomePage = () => {
                         <div key={category.id} className="category-card">
                             <img src={category.image} alt={category.name} />
                             <h3>{category.name}</h3>
-                            <button>Explore</button>
+                            <button onClick={() => navigate(`/category/${category.name.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')}`)}>
+                                Explore
+                            </button>
                         </div>
                     ))}
                 </div>
